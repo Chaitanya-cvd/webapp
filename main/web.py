@@ -3,10 +3,10 @@ import sys
 import os
 
 # Add path to your `functions.py`
-sys.path.append(r"C:\Users\Chaitanya Deshpande\PycharmProjects\cvd\GUI")
-import functions
 
-todos = functions.get_todos()
+from functions import get_todos, write_todos
+
+todos = get_todos()
 
 # Title and description
 st.title("My Todo App")
@@ -18,14 +18,14 @@ for index, todo in enumerate(todos):
     checkbox = st.checkbox(todo.strip(), key=f"todo_{index}")  # Unique key per item
     if checkbox:
         todos.pop(index)
-        functions.write_todos(todos)
+        write_todos(todos)
         st.rerun()  # Refresh the app after removal
 
 # Add new todo
 def add_todo():
     todo = st.session_state["new_todo"] + "\n"
     todos.append(todo)
-    functions.write_todos(todos)
+    write_todos(todos)
     st.session_state["new_todo"] = ""  # clear input
     st.rerun()
 
